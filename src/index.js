@@ -10,6 +10,15 @@ import {
 import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
 import Posts from './pages/Post/Posts';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/',
+  cache: new InMemoryCache(),
+});
+
+
 
 const router = createBrowserRouter([
   {
@@ -29,8 +38,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/* <App /> */}
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+      {/* <App /> */}
+    </ApolloProvider>
   </React.StrictMode>
 );
 
